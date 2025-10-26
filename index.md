@@ -14,17 +14,16 @@ AIによる創作支援や表現拡張をテーマに研究・開発を行って
 ---
 
 ## 🧠 プロフィール
-- GitHub: [penpe](https://github.com/penpe)
-- メール: your.email@gmail.com  
-- 研究分野: 画像生成 / 大規模言語モデル / マルチモーダルAI  
+- GitHub: [penpen5tan](https://github.com/penpen5tan)
+- メール: hatomame930@gmail.com  
+- 研究分野: 画像生成 / 大規模言語モデル /
 
-> ※ 個人情報（大学・専攻・住所など）は公開していません。
 
 ---
 
 ## 📚 プロジェクト
 | タイトル | 分野 | 概要 |
-|-----------|--------|--------|
+|---|---|---|
 | [アニメ画像生成AIの軽量ファインチューニング](projects/diffusion.md) | 画像生成AI | LoRAを用いた省計算アニメ画像生成 |
 | [LLM効率化のためのMixture of Experts](projects/moe.md) | 大規模言語モデル | MoE構造・量子化による推論コスト削減 |
 | [音声対話AIアシスタント](projects/voicebot.md) | 音声対話AI | Whisper + GPT + VoiceVoxによるリアルタイム応答 |
@@ -39,4 +38,4 @@ AIによる創作支援や表現拡張をテーマに研究・開発を行って
 
 ---
 
-© 2025 penpe
+© 2025 penpen5tan
