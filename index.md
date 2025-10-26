@@ -1,3 +1,9 @@
+---
+layout: default
+title: AI × Creativity
+---
+
+
 # 🎨 AI × Creativity  
 **AIリサーチャー / クリエイティブテクノロジスト**
 
