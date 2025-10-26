@@ -1,28 +1,69 @@
-# 🎧 音声対話AIアシスタント（YouTubeライブ連携）
+# 🎤 YouTube Live Chatbot（AI音声対話アシスタント）
 
-![デモ](/assets/images/voicebot_demo.jpg)
+---
 
 ## 概要
-YouTubeライブのチャット取得・音声認識・翻訳・LLM応答・音声合成を統合した、
-**リアルタイム音声対話ボット**のプロトタイプ。
+Google Colab上で動作する **YouTubeライブチャットボットのプロトタイプ**。  
+音声・言語・翻訳・生成AIを統合し、リアルタイムで配信者と視聴者の対話を支援する仕組みを実装。
 
-## 使用技術
-- Python, Google Colab  
-- pytchat, Whisper, （任意の）LLM API, DeepL API, VoiceVox Core  
-- 非同期処理（asyncio, nest_asyncio）
+---
 
-## 処理フロー
-音声入力 → Whisper（ASR） → 翻訳 → LLM応答生成 → VoiceVox（TTS） → 出力
+## システム構成図
 
-## レイテンシ内訳（例）
-| 処理 | 時間(ms) |
-|------|---------|
-| ASR(Whisper) | 400 |
-| 翻訳 | 100 |
-| 応答生成(LLM) | 800 |
-| 音声合成(TTS) | 300 |
-| **合計** | **1600** |
+![システム構成図](/assets/images/voicebot_diagram.png)
+*図1. YouTube Live Chatbot の全体構成（音声・言語・翻訳・生成AIの統合）*
 
-## 今後の改善
-- 非同期バッチ化・キャッシュで待ち時間を短縮
-- 音声感情推定→演出（色調・効果音）への反映
+---
+
+## 機能構成
+
+| 機能 | 使用技術 | 内容 |
+|------|------------|------|
+| チャット取得 | `pytchat` | YouTubeライブのコメントを非同期で取得 |
+| 応答生成 | `OpenAI GPT-3.5` | コメント内容に自然言語で応答生成 |
+| 音声合成 | `VoiceVox Core` | 応答テキストを日本語音声に変換（TTS） |
+| 翻訳 | `DeepL API` | 日本語応答を英語へ自動翻訳 |
+| 音声認識 | `OpenAI Whisper` | 録音音声をテキスト化 |
+| UI構築 | `Colab + HTML/JS` | 録音ボタンやモード切替を実装（おしゃべり／配信モード） |
+
+---
+
+## 目的
+- 配信者と視聴者の**インタラクションを強化**  
+- **ボイスチャット形式の新しい配信体験**を実現  
+- 配信者支援AI（AI VTuber）の基盤技術を検証  
+
+---
+
+## 技術的特徴
+- 非同期処理（`asyncio`, `nest_asyncio`）によるリアルタイム通信最適化  
+- GPU環境でのTTS処理最適化とCPUフォールバック対応  
+- OpenAI, DeepL, VoiceVox, Whisperなど**複数APIの統合実装**  
+- `Google Drive`を活用した柔軟な設定管理（system promptファイル管理）  
+
+---
+
+## 実行環境
+- **Python 3.7以上**
+- **Google Colab（GPU推奨）**
+- ネットワーク接続必須（YouTube API / OpenAI / DeepL）
+
+---
+
+## リンク
+- 🧠 GitHub: [penpenpe5tan/YOU](https://github.com/penpenpe5tan/YOU)
+
+---
+
+## 💡 社会的・産業的意義
+このプロジェクトは、**AIと人間の自然な共創**をテーマとしています。  
+配信やエンタメの現場でAIが“共演者”として振る舞う可能性を検証し、  
+**創作とコミュニケーションを拡張するAI基盤**として応用が期待されます。
+
+- 個人配信者でも利用可能な**低コストAIアシスタント**の実現  
+- 音声・翻訳・生成を統合した**多言語インタラクション環境**の構築  
+- 将来的には、**AI VTuberやAIキャラクターの自律対話化**への展開を想定  
+
+---
+
+© 2025 penpe
