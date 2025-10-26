@@ -1,0 +1,6 @@
+title: "AI × Creativity Portfolio"
+description: "研究とクリエイティブAIのポートフォリオ"
+theme: jekyll-theme-minimal
+markdown: kramdown
+logo: /assets/images/profile.png
+show_downloads: false
