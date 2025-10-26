@@ -22,13 +22,13 @@ AIによる創作支援や表現拡張をテーマに研究・開発を行って
 ---
 
 ## 📚 プロジェクト
+
 | タイトル | 分野 | 概要 |
-|---|---|---|
+|-----------|--------|--------|
 | [アニメ画像生成AIの軽量ファインチューニング](projects/diffusion.md) | 画像生成AI | LoRAを用いた省計算アニメ画像生成 |
 | [LLM効率化のためのMixture of Experts](projects/moe.md) | 大規模言語モデル | MoE構造・量子化による推論コスト削減 |
 | [音声対話AIアシスタント](projects/voicebot.md) | 音声対話AI | Whisper + GPT + VoiceVoxによるリアルタイム応答 |
 
----
 
 ## 🧩 スキル
 - **言語:** Python, C, Java, JavaScript, SQL  
