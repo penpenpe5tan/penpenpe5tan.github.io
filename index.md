@@ -1,6 +1,7 @@
 ---
 layout: default
 title: AI × Creativity
+css: /assets/style.css
 ---
 
 
