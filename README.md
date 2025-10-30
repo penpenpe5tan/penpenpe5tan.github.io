@@ -14,9 +14,9 @@
 
 | タイトル | 概要 |
 |-----------|------|
-| [拡散モデル × 連合学習](https://penpen5tan.github.io/projects/diffusion.html) | 通信量を大幅に削減しながら生成品質を保つ軽量学習戦略。 |
-| [LLM効率化（Mixture-of-Experts）](https://penpen5tan.github.io/projects/moe.html) | 小規模モデルでのMoE適用実験。Routing構成の最適化を検証。 |
-| [YouTube Live Chatbot](https://penpen5tan.github.io/projects/voicebot.html) | Whisper×GPT×VoiceVoxを統合したリアルタイム音声対話AI。 |
+| [拡散モデル × 連合学習](https://penpenpe5tan.github.io/projects/diffusion.html) | 通信量を大幅に削減しながら生成品質を保つ軽量学習戦略。 |
+| [LLM効率化（Mixture-of-Experts）](https://penpenpe5tan.github.io/projects/moe.html) | 小規模モデルでのMoE適用実験。Routing構成の最適化を検証。 |
+| [YouTube Live Chatbot](https://penpenpe5tan.github.io/projects/voicebot.html) | Whisper×GPT×VoiceVoxを統合したリアルタイム音声対話AI。 |
 
 ---
 
