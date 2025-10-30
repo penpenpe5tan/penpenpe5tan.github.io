@@ -55,7 +55,6 @@ $$
 $$
 
 上限を超えた割り当ては drop（棄却）する。
-
 ## 2.4 ロードバランシング補助損失（実装どおり）
 ルータの「重要度」を $\text{importance}_e = \mathbb{E}_{\text{batch}}[p_e]$、実割当て「負荷」を $\text{load}_e = \mathbb{E}_{\text{batch}}\big[\mathbb{I}(e^{*}=e)\big]$ と定義する（バッチ平均）。
 このとき補助損失は
