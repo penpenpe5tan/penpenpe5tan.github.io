@@ -122,4 +122,4 @@ LLMs を **計算量を大きく増やさずにモデルパラメータを増や
 
 
 ## コードと再現
-- 詳細は **別リポジトリ** へ → [TinyMoE-Playground](https://github.com/penpen5tan/TinyMoE-Playground)
+- 詳細は **別リポジトリ** へ → [TinyMoE-Playground](https://github.com/penpenpe5tan/TinyMoE-Playground)
