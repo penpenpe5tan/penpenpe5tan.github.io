@@ -13,7 +13,7 @@ AIによる創作支援や表現拡張をテーマに研究・開発を行って
 ---
 
 ## 🧠 プロフィール
-- GitHub: [penpen5tan](https://penpenpe5tan.github.io/)
+- GitHub: [penpen5tan](https://github.com/penpenpe5tan)
 - メール: hatomame930@gmail.com  
 - 研究分野: 画像生成 / 大規模言語モデル
 
