@@ -55,33 +55,6 @@ $$
 $$
 
 上限を超えた割り当ては drop（棄却）する。
-## 2.4 ロードバランシング補助損失（実装どおり）
-ルータの「重要度」を $\text{importance}_e = \mathbb{E}_{\text{batch}}[p_e]$、実割当て「負荷」を $\text{load}_e = \mathbb{E}_{\text{batch}}\big[\mathbb{I}(e^{*}=e)\big]$ と定義する（バッチ平均）。
-このとき補助損失は
-
-$$
-\mathcal{L}_{\text{aux}}
-= E\sum_{e=1}^{E} \text{importance}_e\cdot \text{load}_e.
-$$
-
-**実装例**：`aux_loss = E * (importance * load).sum()`
-
-## 2.5 ルータの微小ノイズ（jitter）
-学習の安定化のため、$\mathbf{g}$ に微小ノイズを加えることがある：
-
-$$
-\tilde{\mathbf{g}} = \mathbf{g} + \boldsymbol{\epsilon},\qquad \boldsymbol{\epsilon}\sim \mathcal{N}\big(\mathbf{0},\sigma^2\mathbf{I}\big),
-$$
-
-$\tilde{\mathbf{g}}$ を用いて softmax を計算する。
-
-## 2.6 最終損失
-言語モデルのクロスエントロピー損失 ($\mathcal{L}_{\text{CE}}$) に補助損失を加える：
-
-$$
-\mathcal{L} = \mathcal{L}_{\text{CE}} + \lambda\mathcal{L}_{\text{aux}},
-\qquad \lambda = 0.01.
-$$
 
 ## 5. まとめ（今回の条件で言えること）
 
