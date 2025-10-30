@@ -79,7 +79,7 @@ YouTube チャット取得（pytchat）→コメント処理、キーワード�
 ---
 
 ## リンク
-- 🧠 GitHub: [penpenpe5tan/YOUTUBE_LIVE_CHATBOT](https://github.com/penpenpe5tan/YOUTUBE_LIVE_CHATBOT)
+- 🧠 GitHub: [YOUTUBE_LIVE_CHATBOT](https://github.com/penpenpe5tan/YOUTUBE_LIVE_CHATBOT)
 
 ---
 
