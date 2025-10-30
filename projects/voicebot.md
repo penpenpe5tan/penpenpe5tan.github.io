@@ -52,7 +52,7 @@ pytchatでコメントを取得し、キーワード抽出後にGPTで返答を�
 VoiceVoxで音声化し、DeepLで英訳して字幕をHTML上に表示。
 主に生配信・VTuber連携・自動トーク応答用途で使用。
 
-YouTube チャット取得（pytchat）→コメント処理、キーワード抽出、選択→応答生成（OpenAI）→音声合成（VoiceVox Core）→音声出力→翻訳（DeepL）→字幕更新（HTML/JS）
+YouTube チャット取得（pytchat）→コメント処理、キーワード抽出、選択→応答生成（OpenAI）→<br>音声合成（VoiceVox Core）→音声出力→翻訳（DeepL）→字幕更新（HTML/JS）
 
 ---
 
@@ -79,7 +79,7 @@ YouTube チャット取得（pytchat）→コメント処理、キーワード�
 ---
 
 ## リンク
-- 🧠 GitHub: [penpenpe5tan/YOU](https://github.com/penpenpe5tan/YOU)
+- 🧠 GitHub: [penpenpe5tan/YOU](https://github.com/penpenpe5tan/YOUTUBE_LIVE_CHATBOT)
 
 ---
 
