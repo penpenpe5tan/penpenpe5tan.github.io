@@ -43,12 +43,12 @@ Google Colab上で動作する **YouTubeライブチャットボットのプロ�
 
 
 flowchart TD
-    A[音声入力\n(MediaRecorder)] --> B[Whisper\n音声認識 (STT)]
-    B --> C[OpenAI GPT\n応答生成]
-    C --> D[VoiceVox Core\n音声合成 (TTS)]
-    D --> E[音声出力]
-    C --> F[DeepL 翻訳\n(日本語→英語)]
-    F --> G[HTML/JSで字幕更新]
+    A["音声入力<br/>(MediaRecorder)"] --> B["Whisper<br/>音声認識 (STT)"]
+    B --> C["OpenAI GPT<br/>応答生成"]
+    C --> D["VoiceVox Core<br/>音声合成 (TTS)"]
+    D --> E["音声出力"]
+    C --> F["DeepL 翻訳<br/>(日本語→英語)"]
+    F --> G["HTML/JS で字幕更新"]
 
 
 ---
@@ -62,12 +62,13 @@ VoiceVoxで音声化し、DeepLで英訳して字幕をHTML上に表示します
 
 
 flowchart TD
-    A[YouTubeチャット取得\n(pytchat)] --> B[コメント処理\nキーワード抽出/選択]
-    B --> C[OpenAI GPT\n応答生成]
-    C --> D[VoiceVox Core\n音声合成 (TTS)]
-    D --> E[音声出力\n(配信再生)]
-    C --> F[DeepL 翻訳\n(日本語→英語)]
-    F --> G[HTML/JSで字幕更新]
+    A["YouTube チャット取得<br/>(pytchat)"] --> B["コメント処理<br/>キーワード抽出／選択"]
+    B --> C["OpenAI GPT<br/>応答生成"]
+    C --> D["VoiceVox Core<br/>音声合成 (TTS)"]
+    D --> E["音声出力<br/>(配信再生)"]
+    C --> F["DeepL 翻訳<br/>(日本語→英語)"]
+    F --> G["HTML/JS で字幕更新"]
+
 
 
 ---
