@@ -1,3 +1,7 @@
 title: "AI × Creativity Portfolio"
 description: "研究とクリエイティブAIのポートフォリオ"
 markdown: kramdown
+kramdown:
+  input: GFM 
+  hard_wrap: false
+  syntax_highlighter: rouge
