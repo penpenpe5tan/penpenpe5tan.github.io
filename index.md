@@ -29,10 +29,10 @@ AIによる創作支援や表現拡張をテーマに研究・開発を行って
 
 
 ## 🧩 スキル
-- **言語:** Python, C, Java, JavaScript, SQL  
-- **フレームワーク:** PyTorch, Hugging Face, Flask, Unity  
-- **ツール:** Blender, AWS, Docker, Git  
-- **得意分野:** Diffusion Models, LLM, Reinforcement Learning  
+- **言語:** Python, JavaScript
+- **フレームワーク:** PyTorch,  
+- **ツール:** Google Colab
+- **得意分野:** Diffusion Models, Mixture of Experts
 
 ---
 
