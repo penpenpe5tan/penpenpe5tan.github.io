@@ -132,8 +132,5 @@ bash scripts/run_all.sh runs/... # 既存 run を再集計
 - **スタイル別専門家**（韻/比喩/構成）など、**役割設計**で創作性を高めやすい。
 
 
-## 7. 使い方（再現手順）
-- ワンコマンド実行：
-```bash
-bash scripts/run_all.sh # baseline → 全層MoE → グリッド → 集計&可視化
-bash scripts/run_all.sh runs/... # 既存 run を再集計
+## コードと再現
+- 詳細は **別リポジトリ** へ → [Repository](https://github.com/penpen5tan/TinyMoE-Playground)
