@@ -1,7 +1,7 @@
 # 🧠 TinyStoriesMoE: 小規模LLMにおけるMixture-of-Expertsの実装と検証
 
 ![MoE構造イメージ](/assets/images/moe_structure.png)
-
+**図1. MoE概略図**
 ---
 
 ## 概要
