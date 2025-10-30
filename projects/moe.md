@@ -52,36 +52,41 @@ $$
 
 ## 3. 容量制約 (Capacity Constraint)
 
-各専門家が処理できるトークン数（容量） $\text{capacity}$ は、バッチ内トークン数 $\text{tokens\_per\_batch}$ に基づいて以下の式で上限が設定されます。超過したトークンはドロップされます。
+各専門家が処理できるトークン数（容量） \(\text{capacity}\) はバッチ内トークン数 \(\text{tokens\_per\_batch}\) に基づき、
 
 $$
-\text{capacity} = \Big\lceil \text{capacity\_factor} \times \frac{\text{tokens\_per\_batch}}{E} \Big\rceil
+\text{capacity}
+= \left\lceil
+\text{capacity\_factor} \times \frac{\text{tokens\_per\_batch}}{E}
+\right\rceil
 $$
+
+超過したトークンは drop する。
 
 ---
 
 ## 4. 補助損失（ロードバランシング）
 
-偏り抑制のため、専門家の平均利用率 $\bar{p}_e$ を用いた補助損失（ロードバランシング）$\mathcal{L}_{\text{aux}}$ が加えられます。
+偏り抑制のため、専門家の平均利用率 \(\bar{p}_e\) を用いた補助損失 \(\mathcal{L}_{\text{aux}}\) を加える。
 
 $$
-\mathcal{L}_{\text{aux}} \propto E \sum_{e=1}^{E} \bar{p}_e^2
+\mathcal{L}_{\text{aux}}
+\propto
+E \sum_{e=1}^{E} \bar{p}_e^2
 $$
 
 ---
 
 ## 5. 最終損失関数
 
-最終的な損失 $\mathcal{L}$ は、メインのタスク損失 $\mathcal{L}_{\text{CE}}$ と補助損失 $\mathcal{L}_{\text{aux}}$ の和として定義されます。
+最終損失はメイン損失 \(\mathcal{L}_{\text{CE}}\) と補助損失の和：
 
 $$
-\mathcal{L} = \mathcal{L}_{\text{CE}} + \lambda \mathcal{L}_{\text{aux}}, \quad \text{where} \ \lambda = 0.01
+\mathcal{L} = \mathcal{L}_{\text{CE}} + \lambda\,\mathcal{L}_{\text{aux}},
+\qquad \lambda = 0.01
 $$
 
-> **実装上の補足事項:**
-> * 実装は `loss = ce + 0.01 * aux` となります。
-> * ルータには必要に応じて微小ノイズ $\text{router\_jitter}$ を加算することがあります。
----
+> 実装は `loss = ce + 0.01 * aux`。必要に応じ `router_jitter` を加算。
 
 ## 3. 実験設定
 
