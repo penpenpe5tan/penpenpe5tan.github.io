@@ -1,7 +1,7 @@
 # 🎤 YouTube Live Chatbot（AI音声対話アシスタント）
 
 <div align="center">
-  <img src="/assets/images/chat.png" alt=" YouTube Live Chatbot" width="600">
+  <img src="/assets/images/voicebot_diagram.png" alt=" YouTube Live Chatbot" width="600">
 </div>
 
 ---
