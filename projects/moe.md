@@ -8,76 +8,107 @@
 
 ---
 
-## 1. 概要
+# 1. 概要
 
-LLM を **計算量を大きく増やさずに表現容量を拡張**する手法として **Mixture-of-Experts（MoE）** を検証。  
-本リポジトリでは **GPT 系の小規模モデル（TinyStories）** に対し、  
-**Baseline（MoE なし）** と **全層MoE（各 Transformer ブロックの FFN を MoE に置換・Top-1 ルーティング）** を比較する。
+LLMs を **計算量を大きく増やさずにモデルパラメータを増やす**手法として **Mixture-of-Experts（MoE）** を検証する。
+本リポジトリでは **小規模 GPT 系モデル** に対し、
+**Baseline（MoE なし）** と **全ブロック MoE（各 Transformer ブロックの FFN を MoE に置換・Top-1 ルーティング）** を比較する。
 
-評価は主に **Validation Perplexity（PPL）**、併せて **tokens/sec** と **peak VRAM** を記録。
+評価は主に **Validation Perplexity（PPL）**、併せて **tokens/sec** と **peak VRAM** を記録する。
+
+---
+
+# 2. MoE とは
+
+一般に、Attention 計算と FFN の間に **ルータ**を挿入し、FFN を複数の「専門家（experts）」として並列に持つ構成を指す。多様な知識をもつモデルを構築でき、推論時に実際に実行される（アクティブな）パラメータは、総パラメータの増加に比べて相対的に小さい。
+
+## 2.1 ルーティング（gating）
+
+各トークンの隠れ表現 (\mathbf{h}\in\mathbb{R}^d)、専門家数 (E)、ルータ行列 (\mathbf{W}_r\in\mathbb{R}^{E\times d}) に対し、
+
+[
+\begin{aligned}
+\mathbf{g} &= \mathbf{W}_r,\mathbf{h},\
+\mathbf{p} &= \operatorname{softmax}(\mathbf{g}).
+\end{aligned}
+]
+
+ここで (\mathbf{p}\in\mathbb{R}^E) は各専門家を選ぶ確率分布である。
+
+## 2.2 Top-1 専門家選択（Switch-style）
+
+確率最大の専門家 (e^{*}) のみを通す：
+
+[
+\begin{aligned}
+e^{*} &= \operatorname*{argmax}*{e\in{1,\dots,E}}; p_e,\
+\mathbf{y} &= f*{e^{*}}(\mathbf{h}).
+\end{aligned}
+]
+
+> 備考：Switch Transformer では出力を確率でスケーリングしない（(\mathbf{y}=f_{e^{*}}(\mathbf{h}))）。
+
+## 2.3 容量制約（capacity）
+
+バッチ内トークン数を (N_{\text{tok}}) とすると、各専門家の処理上限（capacity）は
+
+[
+\operatorname{capacity}
+=\left\lceil
+\operatorname{capacity_factor}\times \frac{N_{\text{tok}}}{E}
+\right\rceil.
+]
+
+上限を超えた割り当ては **drop**（棄却）する。
+
+## 2.4 ロードバランシング補助損失（実装どおり）
+
+ルータの「重要度」を (\operatorname{importance}*e = \mathbb{E}*{\text{batch}}[p_e])、実割当て「負荷」を (\operatorname{load}*e = \mathbb{E}*{\text{batch}}\big[\mathbb{I}(e^{*}=e)\big]) と定義する（バッチ平均）。
+
+このとき補助損失は
+
+[
+\mathcal{L}*{\text{aux}}
+= E,\sum*{e=1}^{E} \operatorname{importance}_e\cdot \operatorname{load}_e.
+]
+
+> 実装例：`aux_loss = E * (importance * load).sum()`
+
+## 2.5 ルータの微小ノイズ（jitter）
+
+学習の安定化のため、(\mathbf{g}) に微小ノイズを加えることがある：
+
+[
+\tilde{\mathbf{g}} = \mathbf{g} + \boldsymbol{\epsilon},\qquad \boldsymbol{\epsilon}\sim \mathcal{N}\big(\mathbf{0},\sigma^2\mathbf{I}\big),
+]
+
+(\tilde{\mathbf{g}}) を用いて softmax を計算する。
+
+## 2.6 最終損失
+
+言語モデルのクロスエントロピー損失 (\mathcal{L}_{\text{CE}}) に補助損失を加える：
+
+[
+\mathcal{L} = \mathcal{L}*{\text{CE}} + \lambda,\mathcal{L}*{\text{aux}},
+\qquad \lambda = 0.01.
+]
+
+> コード例：`loss = ce + 0.01 * aux`。必要に応じてルータに `router_jitter` を加算する。
 
 ---
 
-## 2. MoE の定式化（実装準拠の最小形）
+# 3. 実験設計（要点）
 
-### 2.1 ルーティング確率
-
-各トークンの隠れ表現 \( \mathbf{h}\in\mathbb{R}^d \)、専門家数 \( E \)、ルータ行列 \( \mathbf{W}_r\in\mathbb{R}^{E\times d} \) に対し、
-
-$$
-\mathbf{g}=\mathbf{W}_r\mathbf{h},\qquad
-\mathbf{p}=\mathrm{softmax}(\mathbf{g})
-$$
-
-### 2.2 Top-1 専門家選択（Switch-style）
-
-確率最大の専門家 \( e^\* \) のみを通す：
-
-$$
-e^\*=\arg\max_e\,p_e,\qquad
-\mathbf{y}=f_{e^\*}(\mathbf{h})
-$$
-
-### 2.3 容量制約（Capacity）
-
-バッチ内トークン数を \( \text{tokens\_per\_batch} \) とすると、各専門家の処理上限は
-
-$$
-\text{capacity}
-=
-\left\lceil
-\text{capacity\_factor}\times \frac{\text{tokens\_per\_batch}}{E}
-\right\rceil
-$$
-
-超過分は **drop** する。
-
-### 2.4 ロードバランシング補助損失（実装どおり）
-
-ルータの「重要度」 \( \mathrm{importance}_e=\mathbb{E}[p_e] \) と実割当て「負荷」
-\( \mathrm{load}_e=\mathbb{E}[\mathbf{1}\{e^\*=e\}] \) を用い、
-
-$$
-\mathcal{L}_{\text{aux}}
-=
-E\,\sum_{e=1}^{E}
-\mathrm{importance}_e\cdot \mathrm{load}_e
-$$
-
-> 実装：`aux_loss = E * (importance * load).sum()`。
-
-### 2.5 最終損失
-
-$$
-\mathcal{L}=
-\mathcal{L}_{\text{CE}}+\lambda\,\mathcal{L}_{\text{aux}},
-\qquad
-\lambda=0.01
-$$
-
-> コード：`loss = ce + 0.01 * aux`。必要に応じてルータに微小ノイズ `router_jitter` を加算。
+* **モデル**：小規模 GPT 系、Baseline と全ブロック MoE（FFN→MoE、Top-1）。
+* **評価**：Validation PPL を主指標、あわせて tokens/sec と peak VRAM を記録。
+* **ハイパラ**：`capacity_factor`、`router_jitter`、(\lambda) をログに残す。
 
 ---
+
+# 4. 参考
+
+* Shazeer et al., *Switch Transformers*（Top-1 gating） など。
+
 
 ## 3. 実装と実験条件
 
