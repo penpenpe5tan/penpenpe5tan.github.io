@@ -1,3 +1,8 @@
+---
+layout: default
+title: YouTube Live Chatbot（AI音声対話アシスタント）
+---
+
 # 🎤 YouTube Live Chatbot（AI音声対話アシスタント）
 
 <div align="center">
