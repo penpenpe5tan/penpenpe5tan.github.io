@@ -26,7 +26,7 @@ LLMs を **計算量を大きく増やさずにモデルパラメータを増や
 $$
 \begin{aligned}
 \mathbf{g} &= \mathbf{W}_r\mathbf{h}, \\
-\mathbf{p} &= \operatorname{softmax}(\mathbf{g}).
+\mathbf{p} &= \text{softmax}(\mathbf{g}).
 \end{aligned}
 $$
 
@@ -37,7 +37,7 @@ $$
 
 $$
 \begin{aligned}
-e^{*} &= \operatorname{argmax}_{e\in\{1,\dots,E\}} p_e, \\
+e^{*} &= \text{argmax}_{e\in\{1,\dots,E\}} p_e, \\
 \mathbf{y} &= f_{e^{*}}(\mathbf{h}).
 \end{aligned}
 $$
@@ -48,21 +48,21 @@ $$
 バッチ内トークン数を ($N_{\text{tok}}$) とすると、各専門家の処理上限（capacity）は
 
 $$
-\operatorname{capacity}
+\text{capacity}
 =\left\lceil
-\operatorname{capacity\_factor}\times \frac{N_{\text{tok}}}{E}
+\text{capacity\_factor}\times \frac{N_{\text{tok}}}{E}
 \right\rceil.
 $$
 
 上限を超えた割り当ては drop（棄却）する。
 
 ## 2.4 ロードバランシング補助損失（実装どおり）
-ルータの「重要度」を $\operatorname{importance}_e = \mathbb{E}_{\text{batch}}[p_e]$、実割当て「負荷」を $\operatorname{load}_e = \mathbb{E}_{\text{batch}}\big[\mathbb{I}(e^{*}=e)\big]$ と定義する（バッチ平均）。
+ルータの「重要度」を $\text{importance}_e = \mathbb{E}_{\text{batch}}[p_e]$、実割当て「負荷」を $\text{load}_e = \mathbb{E}_{\text{batch}}\big[\mathbb{I}(e^{*}=e)\big]$ と定義する（バッチ平均）。
 このとき補助損失は
 
 $$
 \mathcal{L}_{\text{aux}}
-= E\sum_{e=1}^{E} \operatorname{importance}_e\cdot \operatorname{load}_e.
+= E\sum_{e=1}^{E} \text{importance}_e\cdot \text{load}_e.
 $$
 
 **実装例**：`aux_loss = E * (importance * load).sum()`
@@ -83,8 +83,6 @@ $$
 \mathcal{L} = \mathcal{L}_{\text{CE}} + \lambda\mathcal{L}_{\text{aux}},
 \qquad \lambda = 0.01.
 $$
-
---------------------------------------------------------------------------------
 
 # 3. 実験設計（要点）
 * **モデル**：小規模 GPT 系、Baseline と全ブロック MoE（FFN→MoE、Top-1）。
