@@ -23,6 +23,9 @@ Google Colab上で動作する **YouTubeライブチャットボットのプロ�
 | 音声認識 | `OpenAI Whisper` | 録音音声をテキスト化 |
 | UI構築 | `Colab + HTML/JS` | 録音ボタンやモード切替を実装（おしゃべり／配信モード） |
 
+おしゃべりモード（ローカル音声→Whisper→GPT→VoiceVox）
+配信モード（YouTubeチャット取得(pytchat)→キーワード抽出/選択→応答生成(OpenAI GPT)→VoiceVox Core 音声合成(TTS)→音声出力→DeepL 翻訳 （日本語→英語）→HTML/JSで字幕更新
+
 ---
 
 ## 目的
