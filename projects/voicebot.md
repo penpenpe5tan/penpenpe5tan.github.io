@@ -41,7 +41,7 @@ Google Colab上で動作する **YouTubeライブチャットボットのプロ�
 音声入力からGPT応答生成、音声合成、字幕出力までをローカル中心で処理します。
 主に1対1の会話やデモ用途で利用します。
 
-```mermaid
+
 flowchart TD
     A[音声入力\n(MediaRecorder)] --> B[Whisper\n音声認識 (STT)]
     B --> C[OpenAI GPT\n応答生成]
@@ -49,7 +49,7 @@ flowchart TD
     D --> E[音声出力]
     C --> F[DeepL 翻訳\n(日本語→英語)]
     F --> G[HTML/JSで字幕更新]
-```
+
 
 ---
 
@@ -60,7 +60,7 @@ pytchatでコメントを取得し、キーワード抽出後にGPTで返答を�
 VoiceVoxで音声化し、DeepLで英訳して字幕をHTML上に表示します。
 主に生配信・VTuber連携・自動トーク応答用途で使用します。
 
-```mermaid
+
 flowchart TD
     A[YouTubeチャット取得\n(pytchat)] --> B[コメント処理\nキーワード抽出/選択]
     B --> C[OpenAI GPT\n応答生成]
@@ -68,7 +68,7 @@ flowchart TD
     D --> E[音声出力\n(配信再生)]
     C --> F[DeepL 翻訳\n(日本語→英語)]
     F --> G[HTML/JSで字幕更新]
-```
+
 
 ---
 
