@@ -27,7 +27,6 @@ LLMs を **計算量を大きく増やさずにモデルパラメータを増や
 - **学習**：`batch=16, steps=10,000, AdamW(lr=3e-4), bf16, 早期停止`
 - **概算モデルサイズ**（出力ヘッドは埋め込みと非結合, vocab≈50,257※）
 
-- **概算モデルサイズ**（出力ヘッドは埋め込みと非結合, vocab≈50,257※）
 
 
 | 構成 | 総パラメータ（約） |
@@ -40,10 +39,7 @@ LLMs を **計算量を大きく増やさずにモデルパラメータを増や
 
 
 ## 4. 結果（ハイライト）
-### 4.1 詳細テーブル（この5項目のみ）
-> `run | final_val_ppl | best_val_ppl | max_tok_s | peak_mem_mb | ppl_improve_vs_base_%`
-
-
+### 4.1 詳細テーブル
 | run | final_val_ppl | best_val_ppl | max_tok_s | peak_mem_mb | ppl_improve_vs_base_% |
 |---|---:|---:|---:|---:|---:|
 | all_moe_e16_s10000 | 6.924634 | 6.924634 | 24859.28 | 6609.3 | 2.745611909903262 |
@@ -61,11 +57,12 @@ LLMs を **計算量を大きく増やさずにモデルパラメータを増や
 | **baseline_s10000** | **7.120125** | **7.120125** | **158087.4** | **4009.9** | **0.0** |
 
 
-### 4.2 可視化（Router グリッドのみ）
-> **この図だけ掲載**します：`runs/<timestamp>/router_grid.png`
-
-
-![Router Grid](runs/<timestamp>/router_grid.png)
+### 4.2 Router微調整
+<div align="center">
+  <img src="/assets/images/router_grid.png`.png" alt="rutor" width="600">
+  <br>
+  <strong>表1. ルーター設定ごとのppl</strong>
+</div>
 
 
 **図の読み方**
