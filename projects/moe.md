@@ -18,41 +18,69 @@ LLMの計算コストを大きく増やさずに表現容量を拡張する方�
 
 ## 2. MoEの定式化（実装に沿った最小形）
 
-各トークンの隠れ表現を \(h\in\mathbb{R}^d\)、専門家数を \(E\)、ルータ行列を \(W_r\in\mathbb{R}^{E\times d}\) とすると、
-ルーティング確率 \(p\) は
+# 🤖 Mixture-of-Experts (MoE)のルーティングとロードバランシング
 
-\[
-g = W_r h,\qquad p = \mathrm{softmax}(g)
-\]
+これは、MoEモデルにおけるルーティングメカニズムとロードバランシングに関する記述です。
 
-Top-1 では最確率の専門家 \(e^\*\) を選ぶ：
+## 1. ルーティング確率の計算
 
-\[
-e^\*=\arg\max_e p_e,\qquad y=f_{e^\*}(h)
-\]
+各トークンの隠れ表現 $\mathbf{h} \in \mathbb{R}^d$、専門家（Expert）の数 $E$、ルータ行列 $\mathbf{W}_r \in \mathbb{R}^{E \times d}$ を用いて、ルーティング確率 $\mathbf{p}$ は以下のように計算されます。
 
-容量制約はバッチ内トークン数 \(\text{tokens\_per\_batch}\) に対して
+$$
+\mathbf{g} = \mathbf{W}_r \mathbf{h}
+$$
 
-\[
-\text{capacity}=\Big\lceil \text{capacity\_factor}\times \frac{\text{tokens\_per\_batch}}{E}\Big\rceil
-\]
+$$
+\mathbf{p} = \mathrm{softmax}(\mathbf{g})
+$$
 
-を上限とし、超過は drop する。
+---
 
-偏り抑制のため、専門家の平均利用率 \(\bar p_e\) を用いた補助損失（ロードバランシング）を加える：
+## 2. Top-1 専門家の選択
 
-\[
-\mathcal{L}_{\text{aux}} \propto E \sum_{e=1}^{E} \bar p_e^2
-\]
+**Top-1**ルーティングでは、確率が最大の専門家 $e^*$ が選ばれ、その専門家 $f_{e^*}$ が隠れ表現 $\mathbf{h}$ を処理します。
 
-最終損失は
+$$
+e^* = \arg\max_e p_e
+$$
 
-\[
-\mathcal{L}=\mathcal{L}_{\text{CE}}+\lambda\,\mathcal{L}_{\text{aux}},\qquad \lambda=0.01
-\]
+$$
+\mathbf{y} = f_{e^*}(\mathbf{h})
+$$
 
-（実装は `loss = ce + 0.01 * aux`。ルータには必要に応じて微小ノイズ `router_jitter` を加算。）
+---
 
+## 3. 容量制約 (Capacity Constraint)
+
+各専門家が処理できるトークン数（容量） $\text{capacity}$ は、バッチ内トークン数 $\text{tokens\_per\_batch}$ に基づいて以下の式で上限が設定されます。超過したトークンはドロップされます。
+
+$$
+\text{capacity} = \Big\lceil \text{capacity\_factor} \times \frac{\text{tokens\_per\_batch}}{E} \Big\rceil
+$$
+
+---
+
+## 4. 補助損失（ロードバランシング）
+
+偏り抑制のため、専門家の平均利用率 $\bar{p}_e$ を用いた補助損失（ロードバランシング）$\mathcal{L}_{\text{aux}}$ が加えられます。
+
+$$
+\mathcal{L}_{\text{aux}} \propto E \sum_{e=1}^{E} \bar{p}_e^2
+$$
+
+---
+
+## 5. 最終損失関数
+
+最終的な損失 $\mathcal{L}$ は、メインのタスク損失 $\mathcal{L}_{\text{CE}}$ と補助損失 $\mathcal{L}_{\text{aux}}$ の和として定義されます。
+
+$$
+\mathcal{L} = \mathcal{L}_{\text{CE}} + \lambda \mathcal{L}_{\text{aux}}, \quad \text{where} \ \lambda = 0.01
+$$
+
+> **実装上の補足事項:**
+> * 実装は `loss = ce + 0.01 * aux` となります。
+> * ルータには必要に応じて微小ノイズ $\text{router\_jitter}$ を加算することがあります。
 ---
 
 ## 3. 実験設定
