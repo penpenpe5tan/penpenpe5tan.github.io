@@ -1,6 +1,10 @@
 # 🌐 拡散モデルの連合学習による通信効率化と品質安定化
 
-![連合学習の概念図](/assets/images/federated_diffusion.png)
+<div align="center">
+  <img src="/assets/images/federated_diffusion.png" alt="連合学習の概念図" width="600">
+  <br>
+  <strong>図1.連合学習の概念図</strong>
+</div>
 
 ---
 
