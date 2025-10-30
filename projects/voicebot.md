@@ -1,17 +1,14 @@
 # 🎤 YouTube Live Chatbot（AI音声対話アシスタント）
 
+<div align="center">
+  <img src="/assets/images/chat.png" alt=" YouTube Live Chatbot" width="600">
+</div>
+
 ---
 
 ## 概要
 Google Colab上で動作する **YouTubeライブチャットボットのプロトタイプ**。  
 音声・言語・翻訳・生成AIを統合し、リアルタイムで配信者と視聴者の対話を支援する仕組みを実装。
-
----
-
-## システム構成図
-
-![システム構成図](/assets/images/voicebot_diagram.png)
-*図1. YouTube Live Chatbot の全体構成（音声・言語・翻訳・生成AIの統合）*
 
 ---
 
@@ -37,7 +34,6 @@ Google Colab上で動作する **YouTubeライブチャットボットのプロ�
 
 ## 技術的特徴
 - 非同期処理（`asyncio`, `nest_asyncio`）によるリアルタイム通信最適化  
-- GPU環境でのTTS処理最適化とCPUフォールバック対応  
 - OpenAI, DeepL, VoiceVox, Whisperなど**複数APIの統合実装**  
 - `Google Drive`を活用した柔軟な設定管理（system promptファイル管理）  
 
@@ -66,4 +62,4 @@ Google Colab上で動作する **YouTubeライブチャットボットのプロ�
 
 ---
 
-© 2025 penpe
+© 2025 penpen5tan
