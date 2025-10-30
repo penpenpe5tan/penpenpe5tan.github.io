@@ -44,7 +44,7 @@ Google Colab上で動作する **YouTubeライブチャットボットのプロ�
 音声入力→音声認識（Whisper）→応答生成（OpenAI）→音声合成（VoiceVox Core）→音声出力→翻訳（DeepL）→字幕更新（HTML/JS）
 
 
-### 📺 配信モード
+###  配信モード
 
 YouTube配信でチャットコメントと連動して自動応答を行うモード。
 pytchatでコメントを取得し、キーワード抽出後にGPTで返答を生成。
