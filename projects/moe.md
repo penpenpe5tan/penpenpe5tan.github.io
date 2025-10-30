@@ -1,9 +1,11 @@
 # 🧠 小規模LLMにおけるMixture-of-Expertsの実装と検証
 
 <div align="center">
-  <h3>図1. MoE概略図</h3>
   <img src="/assets/images/moe_structure.png" alt="MoE構造イメージ" width="600">
+  <br>
+  <strong>図1. MoE概略図</strong>
 </div>
+
 
 ## 概要
 
