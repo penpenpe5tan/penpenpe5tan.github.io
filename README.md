@@ -6,7 +6,7 @@
 既存のAI技術を組み合わせたり、自分で実装を試しながら、  
 **創作支援や新しい表現の形を探る**研究・開発を行っています。  
 
-👉 **公開サイト:** [https://penpenpe5tan.github.io/)
+👉 **公開サイト:** [https://penpenpe5tan.github.io/]
 
 ---
 
