@@ -1,3 +1,8 @@
+---
+layout: default
+title: LLMsにおける Mixture-of-Experts（MoE）の実装と検証
+---
+
 # 🧠 LLMsにおける Mixture-of-Experts（MoE）の実装と検証
 
 <div align="center">
