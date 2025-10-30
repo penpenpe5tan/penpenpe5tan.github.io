@@ -24,9 +24,9 @@ AIによる創作支援や表現拡張をテーマに研究・開発を行って
 
 | タイトル | 分野 | 概要 |
 |-----------|--------|--------|
-| [アニメ画像生成AIの軽量ファインチューニング](projects/diffusion.md) | 画像生成AI | LoRAを用いた省計算アニメ画像生成 |
-| [LLM効率化のためのMixture of Experts](projects/moe.md) | 大規模言語モデル | MoE構造・量子化による推論コスト削減 |
-| [音声対話AIアシスタント](projects/voicebot.md) | 音声対話AI | Whisper + GPT + VoiceVoxによるリアルタイム応答 |
+| [拡散モデルの連合学習による通信効率化と品質安定化](projects/diffusion.md) | 画像生成AI | LoRAを用いた省計算アニメ画像生成 |
+| [LLMにおける Mixture-of-Experts（MoE）の実装と検証](projects/moe.md) | 大規模言語モデル | MoE構造・量子化による推論コスト削減 |
+| [YouTube Live Chatbot（AI音声対話アシスタント）](projects/voicebot.md) | 音声対話AI | Whisper + GPT + VoiceVoxによるリアルタイム応答 |
 
 
 ## 🧩 スキル
